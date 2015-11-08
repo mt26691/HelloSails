@@ -11,6 +11,7 @@ module.exports = {
    */
   index: function (req, res) {
     User.find(function(err,users){
+      //this is a newly added comment
       if(err){
         res.send(err,500);
         console.log("err");
