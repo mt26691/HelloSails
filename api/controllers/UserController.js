@@ -44,8 +44,7 @@ module.exports = {
 
         return res.redirect('/user/new');
       }
-      res.json(user);
-      res.locals.flash = {};
+      res.redirect('/user/show/' + user.id);
 	   });
   },
 
@@ -54,8 +53,14 @@ module.exports = {
    * `UserController.show()`
    */
   show: function (req, res) {
-    return res.json({
-      todo: 'show() is not implemented yet!'
+    User.findOne(req.params["id"], function (err, user) {
+      if (err) return next(err);
+      if (!user) return next();
+      res.view(
+        {
+          user: user
+        }
+        );
     });
   },
 
