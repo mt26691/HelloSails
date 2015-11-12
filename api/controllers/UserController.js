@@ -26,21 +26,19 @@ module.exports = {
   /**
    * `UserController.new()`
    */
-  new: function (req, res) {
-    return res.json({
-      todo: 'new() is not implemented yet!'
-    });
+  'new': function (req, res) {
+    return res.view();
   },
 
 
-  /**
-   * `UserController.create()`
-   */
-  create: function (req, res) {
-    return res.json({
-      todo: 'create() is not implemented yet!'
-    });
-  },
+  // /**
+  //  * `UserController.create()`
+  //  */
+  // create: function (req, res) {
+  //   return res.json({
+  //     todo: 'create() is not implemented yet!'
+  //   });
+  // },
 
 
   /**

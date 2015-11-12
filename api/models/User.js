@@ -6,12 +6,12 @@
 */
 
 module.exports = {
-
+  //The avantages of 
   attributes: {
-
-    name: { type: 'string' },
-
-    email: { type: 'string' }
+    name: { type: 'string', required: true },
+    title: { type: 'string' },
+    email: { type: 'email',required: true, unique:true },
+    encrypted: { type: 'string' }
   }
 };
 
