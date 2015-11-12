@@ -1,1 +1,4 @@
 The advantages of having schema is you can validate the data.
+_csrf setting is located in config/csrf.js
+default setting is false
+toJSON will be called before any data which go to client

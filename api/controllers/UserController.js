@@ -9,36 +9,47 @@ module.exports = {
   /**
    * `UserController.index()`
    */
-  index: function (req, res) {
-    User.find(function(err,users){
-      //this is a newly added comment
-      if(err){
-        res.send(err,500);
-        console.log("err");
-      }
-    });
-    return res.json({
-      todo: 'index() is not implemented yet!'
-    });
-  },
+  // index: function (req, res) {
+  //   User.find(function(err,users){
+  //     //this is a newly added comment
+  //     if(err){
+  //       res.send(err,500);
+  //       console.log("err");
+  //     }
+  //   });
+  //   return res.json({
+  //     todo: 'index() is not implemented yet!'
+  //   });
+  // },
 
 
   /**
    * `UserController.new()`
    */
   'new': function (req, res) {
-    return res.view();
+    res.locals.flash = _.clone(req.session.flash);
+    res.view();
+    res.locals.flash = {};
   },
 
 
-  // /**
-  //  * `UserController.create()`
-  //  */
-  // create: function (req, res) {
-  //   return res.json({
-  //     todo: 'create() is not implemented yet!'
-  //   });
-  // },
+  /**
+   * `UserController.create()`
+   */
+  create: function (req, res) {
+	   User.create(req.params.all(), function userCreated(err, user) {
+      if (err) {
+        console.log(err);
+        req.session.flash = {
+          err: err
+        }
+
+        return res.redirect('/user/new');
+      }
+      res.json(user);
+      res.locals.flash = {};
+	   });
+  },
 
 
   /**
