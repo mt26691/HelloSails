@@ -24,15 +24,16 @@ var cssFilesToInject = [
 // (uses Grunt-style wildcard/glob/splat expressions)
 var jsFilesToInject = [
 
-  // Load sails.io before everything else
+// Load sails.io before everything else
   'js/dependencies/sails.io.js',
 
-  // Dependencies like jQuery, or Angular are brought in here
+// Dependencies like jQuery, or Angular are brought in here
   'js/dependencies/**/*.js',
-'js/jquery-2.1.4.min.js',
-    'js/bootstrap.js',
-  // All of the rest of your client-side js files
-  // will be injected here in no particular order.
+  'js/jquery-2.1.4.min.js',
+  'js/bootstrap.js',
+  'js/jquery.validate.min.js',
+// All of the rest of your client-side js files
+// will be injected here in no particular order.
   'js/**/*.js',
 
   // Use the "exclude" operator to ignore files
@@ -65,5 +66,5 @@ module.exports.templateFilesToInject = templateFilesToInject.map(transformPath);
 // Transform paths relative to the "assets" folder to be relative to the public
 // folder, preserving "exclude" operators.
 function transformPath(path) {
-    return (path.substring(0, 1) == '!') ? ('!' + tmpPath + path.substring(1)) : (tmpPath + path);
+  return (path.substring(0, 1) == '!') ? ('!' + tmpPath + path.substring(1)) : (tmpPath + path);
 }

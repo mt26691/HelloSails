@@ -9,27 +9,25 @@ module.exports = {
   /**
    * `UserController.index()`
    */
-  index: function (req, res) {
-    User.find(function(err,users){
-      //this is a newly added comment
-      if(err){
-        res.send(err,500);
-        console.log("err");
-      }
-    });
-    return res.json({
-      todo: 'index() is not implemented yet!'
-    });
-  },
+  // index: function (req, res) {
+  //   User.find(function(err,users){
+  //     //this is a newly added comment
+  //     if(err){
+  //       res.send(err,500);
+  //       console.log("err");
+  //     }
+  //   });
+  //   return res.json({
+  //     todo: 'index() is not implemented yet!'
+  //   });
+  // },
 
 
   /**
    * `UserController.new()`
    */
-  new: function (req, res) {
-    return res.json({
-      todo: 'new() is not implemented yet!'
-    });
+  'new': function (req, res) {
+    res.view();
   },
 
 
@@ -37,9 +35,17 @@ module.exports = {
    * `UserController.create()`
    */
   create: function (req, res) {
-    return res.json({
-      todo: 'create() is not implemented yet!'
-    });
+	   User.create(req.params.all(), function userCreated(err, user) {
+      if (err) {
+        console.log(err);
+        req.session.flash = {
+          err: err
+        }
+
+        return res.redirect('/user/new');
+      }
+      res.redirect('/user/show/' + user.id);
+	   });
   },
 
 
@@ -47,8 +53,14 @@ module.exports = {
    * `UserController.show()`
    */
   show: function (req, res) {
-    return res.json({
-      todo: 'show() is not implemented yet!'
+    User.findOne(req.params["id"], function (err, user) {
+      if (err) return next(err);
+      if (!user) return next();
+      res.view(
+        {
+          user: user
+        }
+        );
     });
   },
 

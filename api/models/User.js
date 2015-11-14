@@ -6,12 +6,21 @@
 */
 
 module.exports = {
-
+  //The avantages of 
+  schema:true,
   attributes: {
-
-    name: { type: 'string' },
-
-    email: { type: 'string' }
+    name: { type: 'string', required: true },
+    title: { type: 'string' },
+    email: { type: 'email',required: true, unique:true },
+    encrypted: { type: 'string' },
+    toJSON: function(){
+      var obj = this.toObject();
+      delete obj.password;
+      delete obj.confirmation;
+      delete obj.encryptedPassword;
+      delete obj._csrf;
+      return obj;
+    }
   }
 };
 
