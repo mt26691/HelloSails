@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"><h3>Users</h3></div>
+        <div class="col-md-9 text-right"><a class="btn btn-md btn-primary" href="/user/new">New User</a></div>
+    </div>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Email</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <% _.each(users,function(user){ %>
+            <tr data-id="<%= user.id%>" data-model="user">
+                <td><%= user.id %></td>
+                <td><%= user.name %></td>
+                <td><%= user.title %></td>
+                <td><%= user.email %></td>
+                <td><a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary">Show</a></td>
+                <td><a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning">Edit</a></td>
+                    
+                <td>
+                    <form action="/user/destroy/<%=user.id%>" method="POST">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="submit" value="Delete" class="btn btn-sm btn-danger"/>
+                        <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+                    </form>
+                </td>
+<!--                <td><a href="/user/destroy/<%= user.id %>" class="btn btn-sm btn-danger">Delete</a></td>-->
+            </tr>
+        <% })%>
+    </table>
+</div>

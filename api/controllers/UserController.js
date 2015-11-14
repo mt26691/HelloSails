@@ -9,18 +9,16 @@ module.exports = {
   /**
    * `UserController.index()`
    */
-  // index: function (req, res) {
-  //   User.find(function(err,users){
-  //     //this is a newly added comment
-  //     if(err){
-  //       res.send(err,500);
-  //       console.log("err");
-  //     }
-  //   });
-  //   return res.json({
-  //     todo: 'index() is not implemented yet!'
-  //   });
-  // },
+  index: function (req, res) {
+    User.find(function (err, users) {
+      //this is a newly added comment
+      if (err) {
+        return next(err);
+      }
+      if (!users) return next();
+      res.view({ users: users });
+    });
+  },
 
 
   /**
@@ -69,8 +67,10 @@ module.exports = {
    * `UserController.edit()`
    */
   edit: function (req, res) {
-    return res.json({
-      todo: 'edit() is not implemented yet!'
+    User.findOne(req.params["id"], function (err, user) {
+      if (err) return next(err);
+      if (!user) return next();
+      res.view({ user: user });
     });
   },
 
@@ -79,8 +79,11 @@ module.exports = {
    * `UserController.update()`
    */
   update: function (req, res) {
-    return res.json({
-      todo: 'update() is not implemented yet!'
+    User.update(req.params["id"], req.params.all(), function userUpdated(err) {
+      if (err) {
+        return res.redirect('/user/edit/' + req.params["id"]);
+      }
+      res.redirect('/user/show/' + req.params["id"]);
     });
   },
 
@@ -89,8 +92,20 @@ module.exports = {
    * `UserController.destroy()`
    */
   destroy: function (req, res) {
-    return res.json({
-      todo: 'destroy() is not implemented yet!'
+    User.findOne(req.params["id"], function foundUser(err, user) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) return next("user does not exists");
+
+      User.destroy(req.params["id"], function deleteUser(err) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect("/user");
+
+      });
+
     });
   }
 };
