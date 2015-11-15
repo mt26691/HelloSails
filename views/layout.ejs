@@ -35,27 +35,67 @@
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
 </head>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">Activity Overload</a>
-    </div>
-</div>
 
 <body>
-    <div class="container">
-    <%- body %>
-    </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <hr>
-            <footer class="footer">
-                <div class="pull-right">
-                    <h2>Manh Tung Demo Code tutorial</h2>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Activity OverLord</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <% if(session.authenticated){ %>
+                        <li class="active">
+                            <a href="/user/show/<%=session.User.id%>">
+                                <%= session.User.name%>
+                            </a>
+                        </li>
+                        <li><a href="/user/">User Administrator</a></li>
+                        <%}%>
+                </ul>
+                <div class="navbar-right">
+                    <% if(session.authenticated){%>
+                        <a class="btn btn-default navbar-btn navbar-right" href="/session/destroy">Sign out</a>
+                        <%}%>
+                            <% if(!session.authenticated){%>
+                                <form action="/session/create" method="post" class="navbar-form navbar-right">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Email address" name="email" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="password" placeholder="password" name="password" />
+                                    </div>
+                                    <input type="submit" class="btn btn-success" value="Sign In" />
+                                    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+                                </form>
+                                <%}%>
+
                 </div>
-            </footer>
-        </div>
+                <!--/.nav-collapse -->
+            </div>
+    </nav>
+
+    <div class="container">
+        <%- body %>
+    </div>
+    <div class="container">
+        <hr>
+        <footer class="footer">
+            <div class="pull-right">
+                <h2>Manh Tung Demo Code tutorial</h2>
+            </div>
+        </footer>
+    </div>
 
 
-        <!--
+    <!--
         Client-side Templates
         ========================
 
@@ -76,12 +116,12 @@
               stringfile before they're served.
     -->
 
-        <!--TEMPLATES-->
-        
-        <!--TEMPLATES END-->
+    <!--TEMPLATES-->
+
+    <!--TEMPLATES END-->
 
 
-        <!--
+    <!--
 
       Client-side Javascript
       ========================
@@ -104,13 +144,13 @@
 
     -->
 
-        <!--SCRIPTS-->
-        <script src="/js/dependencies/sails.io.js"></script>
-        <script src="/js/jquery-2.1.4.min.js"></script>
-        <script src="/js/bootstrap.js"></script>
-        <script src="/js/jquery.validate.min.js"></script>
-        <script src="/js/customValidate.js"></script>
-        <!--SCRIPTS END-->
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/jquery-2.1.4.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/customValidate.js"></script>
+    <!--SCRIPTS END-->
 </body>
 
 </html>
