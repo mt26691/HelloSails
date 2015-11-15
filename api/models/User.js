@@ -8,6 +8,7 @@
 module.exports = {
   //The avantages of 
   schema:true,
+  connection: 'someMongodbServer',
   attributes: {
     name: { type: 'string', required: true },
     title: { type: 'string' },

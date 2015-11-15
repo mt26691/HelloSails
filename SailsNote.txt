@@ -3,3 +3,8 @@ _csrf setting is located in config/csrf.js
 default setting is false
 toJSON will be called before any data which go to client
 policy is middleware function which is run before the controller
+
+you can specify connection for all model in models.js 
+=> set default connection.
+
+or set specific connection to model.
