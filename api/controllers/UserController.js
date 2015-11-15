@@ -82,6 +82,14 @@ module.exports = {
    * `UserController.update()`
    */
   update: function (req, res) {
+    if (typeof req.param("admin") !== 'undefined') {
+      if (req.param("admin") === 'unchecked') {
+        req.params.all().admin = false;
+      }
+      else if (req.param("admin")[1] === 'on') {
+        req.params.all().admin = true;
+      }
+    }
     User.update(req.params["id"], req.params.all(), function userUpdated(err) {
       if (err) {
         return res.redirect('/user/edit/' + req.params["id"]);

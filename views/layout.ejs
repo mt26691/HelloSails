@@ -56,8 +56,11 @@
                                 <%= session.User.name%>
                             </a>
                         </li>
+                    <%}%>
+                     <% if(session.authenticated && session.User.admin){ %>
                         <li><a href="/user/">User Administrator</a></li>
-                        <%}%>
+                     <%}%>
+                        
                 </ul>
                 <div class="navbar-right">
                     <% if(session.authenticated){%>
