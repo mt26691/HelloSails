@@ -42,6 +42,8 @@ module.exports = {
 
         return res.redirect('/user/new');
       }
+      req.session.authenticated = true;
+      req.session.User = user;
       res.redirect('/user/show/' + user.id);
 	   });
   },
@@ -54,6 +56,7 @@ module.exports = {
     User.findOne(req.params["id"], function (err, user) {
       if (err) return next(err);
       if (!user) return next();
+      console.log(user);
       res.view(
         {
           user: user

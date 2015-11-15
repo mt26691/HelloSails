@@ -13,8 +13,7 @@ $(document).ready(function () {
         required: true
       },
       confirmation: {
-        minlength: 6,
-        equalTo: '#password'
+        minlength: 6       
       }
     },
     messages: {
@@ -23,7 +22,6 @@ $(document).ready(function () {
       }
     },
     success: function (element) {
-      $('#summary').text("OK");
     }
   });
 

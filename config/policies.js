@@ -51,6 +51,7 @@ module.exports.policies = {
   
 	UserController: {
 		'new': 'flash',
+		'create':'flash',
 		'*': "authenticated"
 	},
 	// SessionController: {
