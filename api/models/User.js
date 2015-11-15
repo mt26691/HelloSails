@@ -7,14 +7,14 @@
 
 module.exports = {
   //The avantages of 
-  schema:true,
+  schema: true,
   connection: 'someMongodbServer',
   attributes: {
     name: { type: 'string', required: true },
     title: { type: 'string' },
-    email: { type: 'email',required: true, unique:true },
+    email: { type: 'email', required: true, unique: true },
     encrypted: { type: 'string' },
-    toJSON: function(){
+    toJSON: function () {
       var obj = this.toObject();
       delete obj.password;
       delete obj.confirmation;
@@ -22,6 +22,17 @@ module.exports = {
       delete obj._csrf;
       return obj;
     }
-  }
+    
+  },
+  beforeCreate: function (values, next) {
+      if (!values.password || values.password != values.confirmation) {
+        return next({ err: "Password does not match confirmation" });
+      }
+      require('bcryptjs').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
+        if (err) return next(err);
+        values.encrypted = encryptedPassword;
+        next();
+      });
+    }
 };
 

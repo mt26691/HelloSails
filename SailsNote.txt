@@ -8,3 +8,7 @@ you can specify connection for all model in models.js
 => set default connection.
 
 or set specific connection to model.
+
+install bcrypt=>
+npm install bcrypt-nodejs
+bcryptjs﻿
