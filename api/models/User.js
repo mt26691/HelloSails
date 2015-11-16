@@ -14,6 +14,7 @@ module.exports = {
     title: { type: 'string' },
     email: { type: 'email', required: true, unique: true },
     encrypted: { type: 'string' },
+    online: { type: 'boolean', defaultsTo: false },
     admin: { type: 'boolean', defaultsTo: false },
     toJSON: function () {
       var obj = this.toObject();

@@ -12,3 +12,15 @@ or set specific connection to model.
 install bcrypt=>
 npm install bcrypt-nodejs
 bcryptjs﻿
+
+SocketIO: handling events between multiple client browser
+using server as a intermediary.
+
+http vs web socket.
+web socket is an extension of http.
+
+socket.io
+=> provies helpful methods to interact with websocket.
+websocket vs http:
+beeter for situation that involve low-latency communication.
+websocket is a message based transport.
