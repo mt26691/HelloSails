@@ -1,0 +1,25 @@
+ <tr data-id="<%= user.id%>" data-model="user">
+				<% if(user.online){%>
+				<td><img src="/images/online.png"/></td>
+				<%}else{ %>
+				
+				<td><img src="/images/offline.png"/></td>
+				
+				<% }%>			
+                <td><%= user.id %></td>
+                <td><%= user.name %></td>
+                <td><%= user.title %></td>
+                <td><%= user.email %></td>
+                <td><%= user.admin %></td>
+                <td><a href="/user/show/<%= user.id %>" class="btn btn-sm btn-primary">Show</a></td>
+                <td><a href="/user/edit/<%= user.id %>" class="btn btn-sm btn-warning">Edit</a></td>
+                    
+                <td>
+                    <form action="/user/destroy/<%=user.id%>" method="POST">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="submit" value="Delete" class="btn btn-sm btn-danger"/>
+                        <input type="hidden" name="_csrf" value="<%= _csrf %>"/>
+                    </form>
+                </td>
+<!--                <td><a href="/user/destroy/<%= user.id %>" class="btn btn-sm btn-danger">Delete</a></td>-->
+            </tr>

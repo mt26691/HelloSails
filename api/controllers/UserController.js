@@ -10,6 +10,7 @@ module.exports = {
    * `UserController.index()`
    */
   index: function (req, res) {
+    
     User.find(function (err, users) {
       //this is a newly added comment
       if (err) {
@@ -25,6 +26,7 @@ module.exports = {
    * `UserController.new()`
    */
   'new': function (req, res) {
+    User.publishCreate({ id: "bimbim", name: "bimbimbim" });
     res.view();
   },
 
@@ -39,7 +41,6 @@ module.exports = {
         req.session.flash = {
           err: err
         }
-
         return res.redirect('/user/new');
       }
       req.session.authenticated = true;
@@ -49,11 +50,7 @@ module.exports = {
         if (err) {
           return next(err);
         }
-        User.publishUpdate(user.id, {
-          loggedIn: true,
-          id: user.id,
-          action: ' has logged in.'
-        });
+        User.publishCreate(user);
         res.redirect('/user/show/' + user.id);
       });
     });
@@ -124,7 +121,8 @@ module.exports = {
         if (err) {
           return next(err);
         }
-       
+        //User.publishCreate( user );
+        User.publishDestroy(user.id);
         res.redirect("/user");
 
       });
@@ -142,6 +140,7 @@ module.exports = {
       }
       //User.subscribe(req.socket);
       User.subscribe(req, _.pluck(users, 'id'));
+       User.watch(req);
       return res.ok();
     });
   }

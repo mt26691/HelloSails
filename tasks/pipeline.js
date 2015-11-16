@@ -32,6 +32,7 @@ var jsFilesToInject = [
   'js/jquery-2.1.4.min.js',
   'js/bootstrap.js',
   'js/jquery.validate.min.js',
+  'js/underscore.js',
 // All of the rest of your client-side js files
 // will be injected here in no particular order.
   'js/**/*.js',
@@ -51,7 +52,7 @@ var jsFilesToInject = [
 // templates get spit out to the same file.  Be sure and check out `tasks/README.md`
 // for information on customizing and installing new tasks.
 var templateFilesToInject = [
-  'templates/**/*.html'
+  'templates/**/*.ejs'
 ];
 
 
