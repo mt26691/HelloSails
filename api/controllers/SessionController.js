@@ -52,6 +52,10 @@ module.exports = {
           if (err) {
             return next(err);
           }
+          User.publishUpdate(user.id, {
+            loggedIn: true,
+            id: user.id
+          });
           if (req.session.User.admin) {
             res.redirect("/user/");
             return;
@@ -71,6 +75,10 @@ module.exports = {
         if (err) {
           return next(err);
         }
+        User.publishUpdate(user.id, {
+          loggedIn: false,
+          id: user.id
+        });
         req.session.destroy();
         res.redirect("/session/new");
       });

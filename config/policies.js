@@ -52,6 +52,7 @@ module.exports.policies = {
 	UserController: {
 		'new': 'flash',
 		'create':'flash',
+		'subscribe':'flash',
 		'show':'userCanSeeProfile',
 		'edit':'userCanSeeProfile',
 		'update':'userCanSeeProfile',

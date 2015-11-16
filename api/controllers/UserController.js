@@ -49,6 +49,11 @@ module.exports = {
         if (err) {
           return next(err);
         }
+        User.publishUpdate(user.id, {
+          loggedIn: true,
+          id: user.id,
+          action: ' has logged in.'
+        });
         res.redirect('/user/show/' + user.id);
       });
     });
@@ -62,7 +67,7 @@ module.exports = {
     User.findOne(req.params["id"], function (err, user) {
       if (err) return next(err);
       if (!user) return next();
-      console.log(user);
+
       res.view(
         {
           user: user
@@ -119,10 +124,25 @@ module.exports = {
         if (err) {
           return next(err);
         }
+       
         res.redirect("/user");
 
       });
 
+    });
+  },
+  
+  /**
+   * `UserController.subscribe()`
+   */
+  subscribe: function (req, res) {
+    User.find(function (err, users) {
+      if (err) {
+        return next(err);
+      }
+      //User.subscribe(req.socket);
+      User.subscribe(req, _.pluck(users, 'id'));
+      return res.ok();
     });
   }
 };
