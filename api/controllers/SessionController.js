@@ -54,7 +54,9 @@ module.exports = {
           }
           User.publishUpdate(user.id, {
             loggedIn: true,
-            id: user.id
+            id: user.id,
+            name: user.name,
+            action: " has logged in"
           });
           if (req.session.User.admin) {
             res.redirect("/user/");
@@ -70,18 +72,25 @@ module.exports = {
       if (err) {
         return next(err);
       }
-      user.online = false;
-      user.save(function (err, user) {
-        if (err) {
-          return next(err);
-        }
-        User.publishUpdate(user.id, {
-          loggedIn: false,
-          id: user.id
+      if (user) {
+        user.online = false;
+        user.save(function (err, user) {
+          if (err) {
+            return next(err);
+          }
+          User.publishUpdate(user.id, {
+            loggedIn: false,
+            id: user.id,
+            name: user.name,
+            action: " has logged out"
+          });
+          req.session.destroy();
+          res.redirect("/session/new");
         });
+      } else {
         req.session.destroy();
         res.redirect("/session/new");
-      });
+      }
     });
   }
 };

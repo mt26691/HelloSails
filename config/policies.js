@@ -52,7 +52,7 @@ module.exports.policies = {
 	UserController: {
 		'new': 'flash',
 		'create':'flash',
-		'subscribe':'flash',
+		'subscribe':['flash','authenticated'],
 		'show':'userCanSeeProfile',
 		'edit':'userCanSeeProfile',
 		'update':'userCanSeeProfile',

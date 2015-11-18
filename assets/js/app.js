@@ -18,9 +18,9 @@ function updateUserInDom(userId, message) {
     case '/user/':
     case '/user':
     case 'user':
-
       if (message.verb === 'updated') {
         UserIndexPage.updateOnlineOffline(userId, message);
+        UserIndexPage.displayFlash(message);
       }
       else if (message.verb === 'created') {
         UserIndexPage.addUser(message);
@@ -44,7 +44,6 @@ var UserIndexPage = {
     }
   },
   addUser: function (message) {
-    debugger;
     var obj = {
       user: message.data,
       _csrf: window.overlord.csrf || ''
@@ -53,7 +52,14 @@ var UserIndexPage = {
       JST['/templates/addUser.ejs'](obj)
       );
   },
-  destroyUser: function (id) {
-    $('tr[data-id="' + id + '"]').remove();
+  destroyUser: function (message) {
+    $('tr[data-id="' + message.id + '"]').remove();
+  },
+  displayFlash: function (message) {
+    $('#chatAudio')[0].play();
+    var msg = message.data.name + message.data.action;
+    var alertdiv = "<div class='alert alert-success'>" + msg + "</div>";
+    $('.navbar').after(alertdiv);
+    $('.alert').fadeOut(5000);
   }
 }
